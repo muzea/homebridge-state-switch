@@ -1,16 +1,15 @@
 {
-  "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
-  "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "displayName": "State Switch",
+  "name": "@woodenfish/homebridge-state-switch",
+  "version": "0.0.2",
+  "description": "Control the state of switch through homekit.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "git://github.com/muzea/homebridge-state-switch.git"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/muzea/homebridge-state-switch/issues"
   },
   "engines": {
     "node": ">=10.17.0",
