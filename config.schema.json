@@ -1,7 +1,7 @@
 {
-  "pluginAlias": "StateSwitchPlugin",
-  "pluginType": "platform",
-  "singular": true,
+  "pluginAlias": "@woodenfish/homebridge-state-switch",
+  "pluginType": "accessory",
+  "singular": false,
   "schema": {
     "type": "object",
     "properties": {
@@ -11,11 +11,11 @@
         "required": true,
         "default": "Example Switch Name"
       },
-      "source": {
-        "title": "Source",
+      "api": {
+        "title": "API backend",
         "type": "string",
         "required": true,
-        "default": "http://192.168.42.164:8000/state"
+        "default": "http://192.168.1.233/state"
       }
     }
   }

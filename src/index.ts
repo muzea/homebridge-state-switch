@@ -10,9 +10,20 @@ import {
   Logging,
   Service,
 } from "homebridge";
+import got from "got";
 import { PLUGIN_NAME } from "./settings";
 
 let hap: HAP;
+
+const ValueMap = {
+  off: false,
+  on: true,
+};
+
+const SwitchState = {
+  off: "off",
+  on: "on",
+};
 
 /*
  * Initializer function called when the plugin is loaded.
@@ -25,36 +36,57 @@ export = (api: API) => {
 class StateSwitch implements AccessoryPlugin {
   private readonly log: Logging;
   private readonly name: string;
-  private switchOn = false;
+  private switchOn = SwitchState.off;
+  private api = "";
 
   private readonly switchService: Service;
   private readonly informationService: Service;
 
   constructor(log: Logging, config: AccessoryConfig, api: API) {
+    log.info("config ", config);
     this.log = log;
     this.name = config.name;
-    log.info("config ", config);
+    this.api = config.api as string;
     this.switchService = new hap.Service.Switch(this.name);
     this.switchService
       .getCharacteristic(hap.Characteristic.On)
       .on(
         CharacteristicEventTypes.GET,
         (callback: CharacteristicGetCallback) => {
-          log.info(
-            "Current state of the switch was returned: " +
-              (this.switchOn ? "ON" : "OFF")
-          );
-          callback(undefined, this.switchOn);
+          log.info("try get remote state");
+          got
+            .get(this.api)
+            .json()
+            .then((resp: any) => {
+              log.info("remote state ", resp);
+              const value = resp[this.name];
+
+              log.info(
+                "Current state of the switch was returned: " +
+                  (value === SwitchState.on ? "ON" : "OFF")
+              );
+
+              callback(undefined, value === SwitchState.on);
+            });
         }
       )
       .on(
         CharacteristicEventTypes.SET,
         (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
-          this.switchOn = value as boolean;
-          log.info(
-            "Switch state was set to: " + (this.switchOn ? "ON" : "OFF")
-          );
-          callback();
+          log.info("try set remote state");
+          const nextValue = Boolean(value);
+          log.info("Switch state was set to: " + (nextValue ? "ON" : "OFF"));
+          got
+            .put(this.api, {
+              json: {
+                [this.name]: nextValue ? SwitchState.on : SwitchState.off,
+              },
+              responseType: "json",
+            })
+            .then((resp) => {
+              log.info("remote state ", resp.body);
+              callback();
+            });
         }
       );
 

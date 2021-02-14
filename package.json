@@ -1,7 +1,7 @@
 {
   "displayName": "State Switch",
   "name": "@woodenfish/homebridge-state-switch",
-  "version": "0.0.2",
+  "version": "0.0.1-alpha6",
   "description": "Control the state of switch through homekit.",
   "license": "Apache-2.0",
   "repository": {
@@ -25,7 +25,9 @@
   "keywords": [
     "homebridge-plugin"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "got": "^11.8.1"
+  },
   "devDependencies": {
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
