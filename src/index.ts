@@ -15,11 +15,6 @@ import { PLUGIN_NAME } from "./settings";
 
 let hap: HAP;
 
-const ValueMap = {
-  off: false,
-  on: true,
-};
-
 const SwitchState = {
   off: "off",
   on: "on",
@@ -36,7 +31,6 @@ export = (api: API) => {
 class StateSwitch implements AccessoryPlugin {
   private readonly log: Logging;
   private readonly name: string;
-  private switchOn = SwitchState.off;
   private api = "";
 
   private readonly switchService: Service;
@@ -95,14 +89,6 @@ class StateSwitch implements AccessoryPlugin {
       .setCharacteristic(hap.Characteristic.Model, "Custom Model");
 
     log.info("Switch finished initializing!");
-  }
-
-  /*
-   * This method is optional to implement. It is called when HomeKit ask to identify the accessory.
-   * Typical this only ever happens at the pairing process.
-   */
-  identify(): void {
-    this.log("Identify!");
   }
 
   /*

@@ -9,7 +9,7 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Switch Name"
+        "default": "switch_233"
       },
       "api": {
         "title": "API backend",

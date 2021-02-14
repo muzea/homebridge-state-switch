@@ -1,7 +1,7 @@
 {
   "displayName": "State Switch",
   "name": "@woodenfish/homebridge-state-switch",
-  "version": "0.0.1-alpha6",
+  "version": "0.0.1-alpha7",
   "description": "Control the state of switch through homekit.",
   "license": "Apache-2.0",
   "repository": {
